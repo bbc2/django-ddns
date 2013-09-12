@@ -61,19 +61,19 @@ def _process_host(host, ip_address, updaters):
     if host == '':
         # "notfqdn: The hostname specified is not a fully-qualified domain name
         # (not in the form hostname.dyndns.org or domain.com)."
-        return { 'code': CODE_NOTFQDN, 'ip': ''}
+        return { 'code': CODE_NOTFQDN, 'ip': '' }
     if host not in settings.HOSTNAMES:
         # "nohost: The hostname specified does not exist in this user account
         # (or is not in the service specified in the system parameter)."
-        return { 'code': CODE_NOHOST, 'ip': ''}
+        return { 'code': CODE_NOHOST, 'ip': '' }
 
     from importlib import import_module
     for name in updaters:
         updater = import_module(name)
         if updater.update(host, ip_address):
-            return { 'code': CODE_GOOD, 'ip': ip_address}
+            return { 'code': CODE_GOOD, 'ip': ip_address }
         else:
-            return { 'code': CODE_911, 'ip': ip_address}
+            return { 'code': CODE_911, 'ip': ip_address }
 
 def format(lines):
     """Format host lines"""
