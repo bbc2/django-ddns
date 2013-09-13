@@ -70,9 +70,12 @@ def _process_host(host, ip_address, updaters):
     from importlib import import_module
     for name in updaters:
         updater = import_module(name)
-        if updater.update(host, ip_address):
+        result = updater.update(host, ip_address)
+        if result == updater.SAME:
+            return { 'code': CODE_NOCHG, 'ip': ip_address }
+        elif result == updater.OK:
             return { 'code': CODE_GOOD, 'ip': ip_address }
-        else:
+        elif result == updater.ERROR:
             return { 'code': CODE_911, 'ip': ip_address }
 
 def format(lines):
