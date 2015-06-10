@@ -18,3 +18,8 @@ Main files:
     updaters/
         (update handlers)
 
+
+License
+-------
+
+See `LICENSE` (MIT).
